@@ -1,66 +1,89 @@
 #include <iostream>
-#include <iomanip>
+using namespace std;
 
-const int ROWS = 3;
-const int COLS = 4;
+class Hexagon {
+private:
+    int s; // Length of one side of the hexagon
 
-int studentID = 12345;
+public:
+    Hexagon(int s) {
+        this->s = s;
+    }
 
-int electricityMatrix[ROWS][COLS] = {
-    {50, 150, 250, 350},
-    {120, 180, 280, 400},
-    {220, 320, 420, 520}
+    double calcArea() {
+        return 1.5 * 1.732 * s;
+    }
+
+    double calcPeri() {
+        return 6 * s;
+    }
+
+    int calcAngleSum() {
+        return 6 * 120; // Sum of all angles of hexagon
+    }
+
+    void display() {
+        cout << "\nArea of Hexagon is: " << calcArea() << endl;
+        cout << "Perimeter of Hexagon is: " << calcPeri() << endl;
+        cout << "Sum of angles of Hexagon is: " << calcAngleSum() << endl;
+    }
 };
 
-void displayMenu() {
-    std::cout << "Student ID: " << studentID << std::endl;
-    std::cout << "1. Display the bill of slab 1 and slab 2." << std::endl;
-    std::cout << "2. Display the bill of slab 3." << std::endl;
-    std::cout << "Press any other key to exit." << std::endl;
-}
+class Square {
+private:
+    int s; // Length of one side of the square
 
-void costSlab1() {
-    int slab1Units = electricityMatrix[0][2] - electricityMatrix[0][0];
-    int slab2Units = electricityMatrix[0][3] - electricityMatrix[0][2];
-    int costSlab1 = slab1Units * 10;
-    int costSlab2 = slab2Units * 15;
+public:
+    Square(int s) {
+        this->s = s;
+    }
 
-    std::cout << "Cost for Slab 1: Rs." << costSlab1 << std::endl;
-    std::cout << "Cost for Slab 2: Rs." << costSlab2 << std::endl;
-}
+    double calcAreaSquare() {
+        return s * s;
+    }
 
-void costSlab2() {
-    int slab3Units = electricityMatrix[1][2] - electricityMatrix[1][0];
-    int costSlab3 = slab3Units * 20;
+    double calcPeriSquare() {
+        return 4 * s;
+    }
 
-    std::cout << "Cost for Slab 3: Rs." << costSlab3 << std::endl;
-}
-
-void costSlab3() {
-    std::cout << "Cost for Slab 3: Rs." << (electricityMatrix[2][3] - electricityMatrix[2][0]) * 20 << std::endl;
-}
+    void display() {
+        cout << "\nArea of Square is: " << calcAreaSquare() << endl;
+        cout << "Perimeter of Square is: " << calcPeriSquare() << endl;
+    }
+};
 
 int main() {
-    char choice;
+    int cnicLastDigit = 9;
+    //length of one side of the square
+    int squareSide = cnicLastDigit + 1;
 
+    // Create hexagon and square objects
+    Hexagon hexagon(cnicLastDigit);
+    Square square(squareSide);
+
+    // Display menu
+    int choice;
     do {
-        displayMenu();
-        std::cout << "Enter your choice: ";
-        std::cin >> choice;
+        cout << "\n\nEnter 1 to Calculate hexagon details (Area, Perimeter, Sum of Angles)" << endl;
+        cout << "Enter 2 to Calculate square details (Area, Perimeter)" << endl;
+        cout << "Enter any other key to Exit the Program" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
 
         switch (choice) {
-            case '1':
-                costSlab1();
+            case 1:
+                hexagon.display();
                 break;
-            case '2':
-                costSlab2();
+            case 2:
+                square.display();
+                break;
+                case 0:
+                    cout << "\n\nExiting the Program" << endl;
                 break;
             default:
-                std::cout << "Exiting the program." << std::endl;
-                break;
+            cout << "Exiting the Program" << endl;
         }
-
-    } while (choice == '1' || choice == '2');
-
+    }
+    while (choice !=0);
     return 0;
 }
